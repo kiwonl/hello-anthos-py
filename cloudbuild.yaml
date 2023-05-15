@@ -16,10 +16,10 @@ steps:
     [
       "deploy", "releases", "create", "rel-${SHORT_SHA}",
       "--delivery-pipeline", "${_PIPELINE_NAME}",
-      "--region", "${LOCATION}",
+      "--region", "us-central1",
       "--annotations", "commitId=${REVISION_ID}",
       "--build-artifacts", "/workspace/artifacts.json",
-      "--skaffold-file", "skaffold-helm.yaml"
+      "--skaffold-file", "skaffold.yaml"
     ]
 substitutions:
   _PIPELINE_NAME: hello-anthos-py-dp
