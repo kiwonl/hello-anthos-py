@@ -1,0 +1,27 @@
+# https://cloud.google.com/deploy/docs/integrating-ci?hl=ko#an_example_configuration_using_skaffold
+# [START cloudbuild_microservice_demo_cloudbuild]
+steps:
+- id: 'Container image build and tagging by skaffold build'
+  name: gcr.io/k8s-skaffold/skaffold:v2.3.1
+  args:
+    - skaffold
+    - build
+    - '--filename=skaffold.yaml' # if you want to change the build method (kubectl/helm), please change the skaffold filename.
+    - '--interactive=false'
+    - '--file-output=/workspace/artifacts.json'
+    - '--default-repo=${_DEFAUILT_REPO}'
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: gcloud
+  args:
+    [
+      "deploy", "releases", "create", "rel-${SHORT_SHA}",
+      "--delivery-pipeline", "${_PIPELINE_NAME}",
+      "--region", "${LOCATION}",
+      "--annotations", "commitId=${REVISION_ID}",
+      "--build-artifacts", "/workspace/artifacts.json",
+      "--skaffold-file", "skaffold-helm.yaml"
+    ]
+substitutions:
+  _PIPELINE_NAME: hello-anthos-py-dp
+  _DEFAUILT_REPO: us-central1-docker.pkg.dev/anthos-multi-project/docker-repo
+# [END cloudbuild_microservice_demo_cloudbuild]

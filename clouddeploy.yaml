@@ -1,0 +1,27 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: hello-anthos-py-dp
+description: delivery pipeline for hello-anthos-py
+serialPipeline:
+  stages:
+  - targetId: anthos-gke-tg
+    profiles: []
+  - targetId: anthos-eks-tg
+    profiles: []
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: anthos-gke-tg
+description: Anthos cluster of GKE
+anthosCluster:
+  membership: projects/anthos-multi-project/locations/global/memberships/anthos-gke
+---
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: anthos-eks-tg
+description: Anthos cluster on EKS
+anthosCluster:
+  membership: projects/anthos-multi-project/locations/global/memberships/anthos-eks
