@@ -1,11 +1,18 @@
-apiVersion: skaffold/v2beta16
+apiVersion: skaffold/v2beta19
 kind: Config
 build:
+  tagPolicy:
+    sha256: {}
   artifacts:
   - image: hello-anthos
     context: src
-  googleCloudBuild: {}
 deploy:
   kubectl:
     manifests:
-      - ./k8s/*.yaml
+      - k8s/**
+profiles:
+- name: cloudbuild
+  build:
+    googleCloudBuild: {
+      projectId: anthos-multi-project
+    }
