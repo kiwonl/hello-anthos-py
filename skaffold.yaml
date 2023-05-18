@@ -9,7 +9,7 @@ build:
 manifests:
   kustomize:
     paths:
-    - kubernetes-manifests
+    - k8s
 deploy:
   kubectl: {}
 profiles:
