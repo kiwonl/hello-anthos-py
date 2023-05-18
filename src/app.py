@@ -28,7 +28,7 @@ def hello():
     for i in range(0, 1000000):
         x = x + math.sqrt(x)
 
-    return 'Hello!!!! Anthos version: %s, instance: %s\n' % (version, os.environ.get('HOSTNAME'))
+    return 'Hello!@!@!@! Anthos version: %s, instance: %s\n' % (version, os.environ.get('HOSTNAME'))
 
 @app.route('/health')
 def health():
