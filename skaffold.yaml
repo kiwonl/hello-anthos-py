@@ -1,4 +1,4 @@
-apiVersion: skaffold/v2beta19
+apiVersion: skaffold/v3
 kind: Config
 build:
   tagPolicy:
@@ -6,10 +6,12 @@ build:
   artifacts:
   - image: hello-anthos
     context: src
+manifests:
+  kustomize:
+    paths:
+    - kubernetes-manifests
 deploy:
-  kubectl:
-    manifests:
-      - k8s/**
+  kubectl: {}
 profiles:
 - name: cloudbuild
   build:
