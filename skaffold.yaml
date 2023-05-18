@@ -1,10 +1,11 @@
-apiVersion: skaffold/v4beta2
+apiVersion: skaffold/v2beta16
 kind: Config
 build:
   artifacts:
   - image: hello-anthos
     context: src
   googleCloudBuild: {}
-manifests:
-   rawYaml:
+deploy:
+  kubectl:
+    manifests:
       - k8s-*
